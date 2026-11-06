@@ -2,9 +2,64 @@
 
 CS310 Mobile Application Development - Group 15
 
-Watchlist is a proposed Flutter mobile app, targeting Android first, for students
-and casual movie viewers. It combines movie discovery, title search and a personal
-watchlist with watched status and personal star ratings stored on the device.
+Watchlist is a planned Flutter movie-discovery app built around a simple swipe deck.
+Choose a genre and optional minimum TMDB score/release-year filters, or use random
+mode to shuffle the matching movies. Swipe right to save a movie to your watchlist;
+swipe left to skip it. The watchlist tracks what you want to watch, watched status,
+personal stars, and planned reminders to watch saved movies.
+
+## Current design direction - 6 November 2026
+
+- One movie card at a time: poster, title, year and TMDB score.
+- Swipe left = skip; swipe right = save. Matching Skip and Save buttons provide the same actions.
+- Filters: genre, minimum TMDB score and release-year lower bound.
+- Random mode shuffles the current matching set; with no filters, it samples the available set.
+- Movie details show the overview and offer saving/removal.
+- The watchlist prevents duplicate movie IDs, supports removal, watched/unwatched status, and editable/clearable 1-5 personal stars.
+- Title search remains available from the Step 1 core scope.
+- Reminders are part of the intended app. In-app reminders versus scheduled phone notifications are still being decided; notifications are not implemented.
+- Login and sign-up screens are UI-only in Step 2, as required by the assignment.
+
+These design changes correct the earlier browse-list description. The submitted
+Step 1 PDF is preserved. The revised interaction design still needs group/TA review;
+this README does not claim TA approval of added scope.
+
+## Implementation approach and status
+
+The Flutter app has not been implemented. The existing local browser wireframe
+preview is a design experiment and is being revised for the swipe flow; it is not
+runnable Flutter code or a finished milestone submission.
+
+Use simple Dart model objects, lists, reusable Flutter widgets and setState.
+Use Flutter's built-in Dismissible for left/right swipes rather than a card-stack
+package. Dismissible is an explicitly accepted extension beyond the lessons checked.
+List shuffling, models, cards, state updates, input handling and basic navigation
+are supported by the posted Week 1-6 materials/examples.
+
+TMDB supplies movie data and its own score (0-10), not IMDb ratings. Personal stars
+(1-5) are separate. The accepted first-version filters use TMDB score, genre and year.
+
+The Step 1 data plan uses HTTP/JSON plus SQLite through sqflite and path. Networking
+and persistence are later-course topics, not claims of already-taught or completed
+implementation. Firebase is required in Step 3; its specification must be reviewed
+before finalizing authentication and data responsibilities. Real phone notifications
+would require additional scheduling/permission work and explicit scope approval.
+
+An authenticated standalone TMDB check passed on 25 October 2026 for genre browsing,
+title search, combined genre/year/score filters, details and a poster. It does not
+verify Flutter integration, local storage, authentication or reminders.
+
+Never commit API credentials. Include the provider's required attribution.
+No shared-rating analytics, generated review summaries or recommendation engine
+are planned.
+
+## Next project steps
+
+1. Agree on the reminder behavior and review the corrected swipe-first wireframes.
+2. Submit Step 2.1 by 8 November, 23:59; obtain TA feedback before UI implementation.
+3. Implement approved Flutter UI incrementally with each member's own contributions and commits.
+4. Test filtering, skip/save, duplicate prevention, details/back navigation and watchlist controls.
+5. Integrate and test API, persistence, authentication and reminders when their scope is approved.
 
 ## Group and Step 1 responsibilities
 
@@ -18,63 +73,14 @@ Step 1 coordinator: **Baran Aksoy (33575)**. A different member will coordinate
 the next step. These are assigned responsibilities; all members must review the
 final submission and be able to explain their own work.
 
-## Planned core features
+## Repository and references
 
-- Browse TMDB movies and filter the discovery list by genre.
-- Search by movie title through a text field and Search button.
-- View title, poster, description and the provider's TMDB score (0-10).
-- Add or remove watchlist entries, preventing duplicate movie IDs.
-- Mark saved movies watched or unwatched.
-- Add, edit or clear a personal rating of 1-5 stars for a saved movie.
-- Preserve saved movies, watched status and personal stars across app restarts.
+Public repository: https://github.com/BaranSUnet/cs310-watchlist
 
-## Optional features
+Owner: BaranSUnet (formerly baran33575). Adar-21 and ozanbaristurgutt accepted
+collaborator access, verified 25 October 2026.
 
-A release-year lower bound and minimum TMDB-score filter for discovery browsing,
-only after completing the core. Title search is a separate mode.
-
-Shared-user rating cohorts, discovery-history analysis, review summaries,
-accounts, cloud synchronization and a shared backend are outside this scope.
-
-## Data and technical plan
-
-- Flutter with HTTP requests and JSON parsing; TMDB is the single movie provider.
-- SQLite via **sqflite**, with **path**, for local storage on the Android target.
-- One saved-movies table: TMDB movie ID (primary key), title, poster reference,
-  watched flag and nullable personal rating (integer 1-5).
-- Personal ratings stay local and are separate from TMDB scores.
-- Saved titles, watched flags and personal stars are usable offline. New browsing,
-  search, details and uncached remote posters require internet access.
-- Include required TMDB attribution and refresh or clear provider metadata within
-  the provider's caching limit. Never commit API credentials. A mobile build
-  cannot guarantee credential secrecy.
-
-## Feasibility and status
-
-Step 1 planning only; the Flutter application has not been implemented.
-An authenticated check using Baran's TMDB Free Developer account passed on
-25 October 2026 for genres, genre-filtered discovery, Interstellar title search,
-combined Science Fiction + Drama / 2011 onward / TMDB score at least 8 filters,
-movie details and a JPEG poster. This verifies API retrieval only; Flutter search
-and SQLite flows still need implementation and testing.
-
-Baran owns this public repository. Adar has accepted collaborator access as
-**Adar-21**, and Ozan has accepted as **ozanbaristurgutt**. All three group
-members have repository access, verified on 25 October 2026.
-
-## Implementation sequence
-
-1. Build Discover, Search and Details screens with loading, empty and error states.
-2. Add the SQLite watchlist, duplicate prevention and watched-status controls.
-3. Add the personal star selector and persistence.
-4. Verify: search -> open a movie -> save -> change status and stars -> restart
-   -> confirm the same saved values. Also check removal, no results and network failure.
-5. Consider optional year and TMDB-score filters only after the core works.
-
-## References
-
-- [TMDB discovery](https://developer.themoviedb.org/reference/discover-movie)
+- [TMDB movie discovery and filters](https://developer.themoviedb.org/reference/discover-movie)
 - [TMDB title search](https://developer.themoviedb.org/reference/search-movie)
-- [TMDB authentication](https://developer.themoviedb.org/docs/authentication-application)
-- [TMDB FAQ and attribution](https://developer.themoviedb.org/docs/faq)
-- [Flutter: persist data with SQLite](https://docs.flutter.dev/cookbook/persistence/sqlite)
+- [Flutter Dismissible](https://api.flutter.dev/flutter/widgets/Dismissible-class.html)
+- [Flutter SQLite guide](https://docs.flutter.dev/cookbook/persistence/sqlite)
