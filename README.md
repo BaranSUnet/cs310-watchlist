@@ -6,7 +6,7 @@ Watchlist is a planned Flutter movie-discovery app built around a simple swipe d
 Choose a genre and optional minimum TMDB score/release-year filters, or use random
 mode to shuffle the matching movies. Swipe right to save a movie to your watchlist;
 swipe left to skip it. The watchlist tracks what you want to watch, watched status,
-personal stars, and planned reminders to watch saved movies.
+and personal stars. Reminders are deferred from the current version.
 
 ## Current design direction - 6 November 2026
 
@@ -17,7 +17,7 @@ personal stars, and planned reminders to watch saved movies.
 - Movie details show the overview and offer saving/removal.
 - The watchlist prevents duplicate movie IDs, supports removal, watched/unwatched status, and editable/clearable 1-5 personal stars.
 - Title search remains available from the Step 1 core scope.
-- Reminders are part of the intended app. In-app reminders versus scheduled phone notifications are still being decided; notifications are not implemented.
+- Reminders are deferred from the current version by the 6 November scope decision. No notification feature is being implemented.
 - Login and sign-up screens are UI-only in Step 2, as required by the assignment.
 
 These design changes correct the earlier browse-list description. The submitted
@@ -26,9 +26,11 @@ this README does not claim TA approval of added scope.
 
 ## Implementation approach and status
 
-The Flutter app has not been implemented. The existing local browser wireframe
-preview is a design experiment and is being revised for the swipe flow; it is not
-runnable Flutter code or a finished milestone submission.
+No complete Flutter app or Step 2.2 submission exists. A small local Flutter swipe
+study demonstrates sample-data filtering, random order, skip/save and a temporary
+watchlist. It is an isolated learning example, not the assessed application.
+The earlier browser wireframe/PDF uses the superseded browse-list design and must
+be revised before Step 2.1 submission.
 
 Use simple Dart model objects, lists, reusable Flutter widgets and setState.
 Use Flutter's built-in Dismissible for left/right swipes rather than a card-stack
@@ -55,11 +57,11 @@ are planned.
 
 ## Next project steps
 
-1. Agree on the reminder behavior and review the corrected swipe-first wireframes.
+1. Review the corrected swipe-first wireframes; reminders are deferred.
 2. Submit Step 2.1 by 8 November, 23:59; obtain TA feedback before UI implementation.
 3. Implement approved Flutter UI incrementally with each member's own contributions and commits.
 4. Test filtering, skip/save, duplicate prevention, details/back navigation and watchlist controls.
-5. Integrate and test API, persistence, authentication and reminders when their scope is approved.
+5. Integrate and test API, persistence and authentication when their implementation scope is approved.
 
 ## Group and Step 1 responsibilities
 
