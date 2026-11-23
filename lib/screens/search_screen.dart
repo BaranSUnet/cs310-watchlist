@@ -63,9 +63,10 @@ class _SearchScreenState extends State<SearchScreen> {
         const SizedBox(height: gap),
         FilledButton(onPressed: _search, child: const Text('Search')),
         const SizedBox(height: 20),
-        if (query == null)
-          const Text('Enter a movie title.', style: TextStyle(color: muted))
-        else if (results.isEmpty)
+        if (query == null) ...[
+          if (_error == null)
+            const Text('Enter a movie title.', style: TextStyle(color: muted)),
+        ] else if (results.isEmpty)
           const EmptyCard(
             icon: Icons.search_off,
             title: 'No movies found',
