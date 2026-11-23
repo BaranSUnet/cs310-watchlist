@@ -75,17 +75,25 @@ void main() {
       expect(find.text('Your rating: Unrated'), findsOneWidget);
 
       await tap(tester, tab('Search'));
+      expect(find.text('Enter a movie title.'), findsOneWidget);
+      await tester.enterText(find.byType(TextField), '   ');
+      await tap(tester, find.widgetWithText(FilledButton, 'Search'));
+      expect(find.text('Enter a movie title.'), findsOneWidget);
+      expect(
+        tester.widget<TextField>(find.byType(TextField)).decoration?.errorText,
+        'Enter a movie title.',
+      );
       await tester.enterText(find.byType(TextField), 'xyzzy');
       await tap(tester, find.widgetWithText(FilledButton, 'Search'));
       expect(find.text('No movies found'), findsOneWidget);
-      await tester.enterText(find.byType(TextField), 'inter');
+      await tester.enterText(find.byType(TextField), '  InTeR  ');
       await tap(tester, find.widgetWithText(FilledButton, 'Search'));
       await tap(tester, find.text('Interstellar'));
       expect(find.text('Movie details'), findsOneWidget);
       await tap(tester, find.text('Add to watchlist'));
       expect(find.text('Remove from watchlist'), findsOneWidget);
       await tap(tester, find.byTooltip('Back'));
-      expect(find.text('Results for “inter”'), findsOneWidget);
+      expect(find.text('Results for “InTeR”'), findsOneWidget);
       await tap(tester, tab('Watchlist'));
       expect(find.text('2 saved'), findsOneWidget);
       await tap(tester, find.text('Remove').first);
